@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(true);
-#if 0
+
     if(argc <= 2)
     {
         return -1;
@@ -60,6 +60,8 @@ int main(int argc, char *argv[])
 
     QString urlPatch = argv[1];
     QString urlFull = argv[2];
+
+    // 是否需要后台偷偷升级
     bool bHide = false;
     if(argc >= 3)
     {
@@ -72,13 +74,6 @@ int main(int argc, char *argv[])
 
     // 启用日志功能
     addLog();
-#else
-    QString urlPatch;
-    QString urlFull;
-    urlPatch = "http://jmdown.okii.com/applicationupdate/N1PatchV1.11_V0.43_1.sbb";
-    urlFull = "http://jmdown.okii.com/applicationupdate/DownloadToolN1SetupV1.11.rar";
-    bool bHide = false;
-#endif
     Update u(urlPatch, urlFull, bHide);
     u.show();
     QObject::connect(&u, &Update::updateCompleted, qApp, &QApplication::quit);
